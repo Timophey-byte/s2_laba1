@@ -1,3 +1,4 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include"prog.h"
 
 Prog::Prog()
@@ -25,9 +26,42 @@ char* Prog::operator[](int i)
 
 void Prog::print()
 {
-	printf("DAY %s\n", prop[DAY]);
-	printf("TIME %s\n", prop[TIME]);
-	printf("NAME %s\n", prop[NAME]);
+	printf("1) DAY %s\n", prop[DAY]);
+	printf("2) TIME %s\n", prop[TIME]);
+	printf("3) NAME %s\n", prop[NAME]);
 }
 
 
+int Prog::takeIdOfProp()
+{
+	printf("there are 3 properties you can edit\n");
+	print();
+	int id = -1;
+
+	while (id <= 0 || id > 3)
+	{
+		printf("enter id of property or -1 to exit\n");
+		scan("%d", &id);
+		if (id == -1)
+			return -1;
+	}
+
+	return id;
+}
+
+int Prog::setProp(int i)
+{
+	char s[MAXLEN] = { '\0' };
+	printf("new value\n");
+	try {
+		s_get(s);
+	}
+	catch (char* msg)
+	{
+		throw msg;
+	}
+
+	strcpy(prop[i - 1], s);
+
+	return 0;
+}

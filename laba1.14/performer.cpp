@@ -26,10 +26,10 @@ char* Performer::operator[](int i)
 
 void Performer::print()
 {
-	printf("FIO %s\n", prop[FIO]);
-	printf("ORGANISATION %s\n", prop[ORG]);
-	printf("NAME %s\n", prop[NAME]);
-	printf("ABSTRACT %s\n\n", prop[ABS]);
+	printf("1) FIO %s\n", prop[FIO]);
+	printf("2) ORGANISATION %s\n", prop[ORG]);
+	printf("3) NAME %s\n", prop[NAME]);
+	printf("4) ABSTRACT %s\n\n", prop[ABS]);
 }
 
 
@@ -39,9 +39,9 @@ int Performer::takeIdOfProp()
 	print();
 	int id = -1;
 
-	while (id < 0 || id > 4)
+	while (id <= 0 || id > 4)
 	{
-		printf("enter id of propertie or -1 to exit\n");
+		printf("enter id of property or -1 to exit\n");
 		scan("%d", &id);
 		if (id == -1)
 			return -1;
@@ -62,10 +62,8 @@ int Performer::setProp(int i)
 		throw msg;
 	}
 
-	strcpy(prop[i], s);
+	strcpy(prop[i-1], s);
 
 	return 0;
 }
-
-
 

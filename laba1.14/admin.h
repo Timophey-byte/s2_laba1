@@ -9,7 +9,9 @@ class Admin : public Conference
 {
 
 	char* prop[3];
+	int takeIdOfProp() override;
 
+	int setProp(int i) override;
 public:
 
 	Admin();

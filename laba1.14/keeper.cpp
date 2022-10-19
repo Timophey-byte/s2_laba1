@@ -84,7 +84,7 @@ int Keeper::edit()
 
 	while (id < 0 || id >= size)
 	{
-		printf("there are %d elements added", size);
+		printf("there are %d elements added\n", size);
 		printf("enter id of element or -1 to exit or %d to see all\n", size);
 		scan("%d", &id);
 		if (id == -1)
@@ -106,7 +106,7 @@ void Keeper::printAll()
 	int  c = 0;
 	for (int i = 0; i < size; i++)
 	{
-		printf("N%d\n", i);
+		printf("N%d\n", i+1);
 		list[i]->print();
 		printf("\n");
 		c++;
@@ -141,7 +141,7 @@ int Keeper::printAllOfType(int t)
 	{
 		if (list[i]->getType() == t)
 		{
-			printf("No %d\n", i);
+			printf("No %d\n", i+1);
 			list[i]->print();
 			c++;
 		}
@@ -165,6 +165,7 @@ void Keeper::printSearchFio()
 		if (list[i]->getType() == PERFORMER_T || list[i]->getType() == ADMIN_T)
 			if (strcmp((*item)[FIO], str) == 0)
 			{
+				printf("No %d\n", i + 1);
 				item->print();
 				c++;
 			}
@@ -188,6 +189,7 @@ void Keeper::printSeachName()
 		if (list[i]->getType() == PERFORMER_T || list[i]->getType() == PROGR_T)
 			if (strcmp((*item)[NAME], str) == 0)
 			{
+				printf("No %d\n", i + 1);
 				item->print();
 				c++;
 			}
