@@ -11,9 +11,7 @@ void list()
 	printf("3 add new\n");
 	printf("4 edit one item\n");
 	printf("5 delete one item\n");
-	printf("6 load from file\n");
-	printf("7 save to file\n");
-	printf("10 change fine name\n");
+	printf("10 open file settings (save, load, change path)\n");
 	printf("\n");
 }
 
@@ -70,7 +68,13 @@ int main()
 			break;
 		
 		case 4:
-			conf.edit();
+			try {
+				conf.edit();
+			}
+			catch (char* msg)
+			{
+				printf("exeption: %s\n", msg);
+			}
 			break;
 		
 		case 5:
@@ -82,7 +86,9 @@ int main()
 		case 7:
 			break;
 
-
+		case 10:
+			conf.fileMenu();
+			break;
 
 
 		default:

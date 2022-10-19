@@ -1,4 +1,5 @@
 #pragma once
+#define _CRT_SECURE_NO_WARNINGS
 #include "my.h"
 
 #include "keeper.h"
@@ -12,9 +13,11 @@
 
 Keeper::Keeper()
 {
+	setChangeSaved(false);
 	printf("+ Keeper\n");
 	size = 0;
 	list = nullptr;
+	strcpy(filePath, (char*)"file.txt");
 }
 
 Keeper::~Keeper()
@@ -92,13 +95,26 @@ int Keeper::edit()
 		if (id == size)
 			printAll();
 	}
-
-	list[id]->edit();
-
-
-
+	try {
+		list[id]->edit();
+	}
+	catch(char* m)
+	{
+		throw m;
+	}
+	setChangeSaved(false);
 	return 0;
 };
+
+void Keeper::setChangeSaved(bool v)
+{
+	ChangeSaved = v;
+}
+
+bool Keeper::isChangeSaved()
+{
+	return ChangeSaved;
+}
 
 void Keeper::printAll()
 {
@@ -228,4 +244,65 @@ int Keeper::searchPrint()
 
 }
 
+char* Keeper::getFilePath()
+{
+	return filePath;
+}
+void Keeper::setFilePath(char* p)
+{
+	strcpy(filePath, p);
 
+}
+void Keeper::setPath()
+{
+	printf("now file path is: %s", getFilePath());
+	printf("enter new file path:\n");
+	char path[MAXLEN + 1];
+	try { 
+		s_get(path); 
+	}
+	catch (char* m)
+	{
+		throw m;
+	}
+
+	setFilePath(path);
+
+}
+
+
+int Keeper::fileMenu()
+{
+	int mode = -1;
+	
+
+	while (true)
+	{
+		printf("FILE SETTINGS\nEXIT -1\nSET PATH 0\nSAVE 1\nLOAD 2\nenter comman\n");
+		scan("%d", &mode);
+		switch (mode)
+		{
+		default:
+			printf("invalid input\n");
+			break;
+		case -1:
+			return 0;
+		case 0:
+			try { setPath(); }
+			catch(char* m)
+			{
+				throw m;
+			}
+			printf("now path is %s\n", getFilePath());
+			break;
+		case 1:
+			//save();
+			break;
+		case 2:
+			//load();
+			break;
+
+		}
+	}
+
+}

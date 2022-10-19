@@ -23,6 +23,7 @@ int Conference::getType()
 
 int Conference::edit()
 {
+
 	int id = takeIdOfProp();
 	if (id == -1) return 0;
 	try {
@@ -32,5 +33,8 @@ int Conference::edit()
 	{
 		throw msg;
 	}
+
+
+
 	return 0;
 }
