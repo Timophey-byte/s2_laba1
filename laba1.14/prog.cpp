@@ -31,10 +31,3 @@ void Prog::print()
 }
 
 
-
-
-void Prog::edit()
-{
-	// TODO
-}
-

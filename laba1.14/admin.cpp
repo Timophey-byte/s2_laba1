@@ -31,11 +31,3 @@ void Admin::print()
 
 }
 
-
-
-
-void Admin::edit()
-{
-	// TODO
-}
-

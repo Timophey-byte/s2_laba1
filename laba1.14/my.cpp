@@ -35,3 +35,20 @@ void setListZero(char** arr, int n)
 		strcpy(arr[i], "---");
 	}
 }
+
+void myInvalidParamHandler(const wchar_t*, const wchar_t*, const wchar_t*, unsigned int, uintptr_t)
+{
+
+}
+
+void s_get(char* s)
+{
+	_CrtSetReportMode(_CRT_ASSERT, 0);
+	_invalid_parameter_handler oldHandler = _set_invalid_parameter_handler(myInvalidParamHandler);
+	if (gets_s(s, MAXLEN) == nullptr)
+	{
+		_set_invalid_parameter_handler(oldHandler);
+		throw (char*)"error: line too short for input\n";
+	}
+	_set_invalid_parameter_handler(oldHandler);
+}

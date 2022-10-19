@@ -20,7 +20,5 @@ public:
 
 	void print() override;
 
-	void edit() override;
-
 
 };

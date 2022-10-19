@@ -19,6 +19,10 @@
 class Conference
 {
 	int type;
+	virtual int takeIdOfProp() { return 0; };
+
+	virtual int setProp(int i) { return 0; };
+
 public:
 
 	Conference();
@@ -27,7 +31,7 @@ public:
 	virtual void print() {};
 	virtual char* operator[](int i) { return nullptr; };
 	
-	virtual void edit() {};
+	int edit();
 
 	void setType(int);
 	int getType();

@@ -80,7 +80,22 @@ int Keeper::add() {
 
 int Keeper::edit() 
 {
-	
+	int id = -1;
+
+	while (id < 0 || id >= size)
+	{
+		printf("there are %d elements added", size);
+		printf("enter id of element or -1 to exit or %d to see all\n", size);
+		scan("%d", &id);
+		if (id == -1)
+			return 0;
+		if (id == size)
+			printAll();
+	}
+
+	list[id]->edit();
+
+
 
 	return 0;
 };
@@ -107,7 +122,7 @@ int Keeper::printTypeMenu()
 
 	while (type < 1 || type > 4)
 	{
-		printf("PTINT ALL OF ONE TYPE\nLIST OF COMMANDS:\n-1 back\n");
+		printf("PRINT ALL OF ONE TYPE\nLIST OF COMMANDS:\n-1 back\n");
 		printf("1 see all performers\n");
 		printf("2 see all administrators\n");
 		printf("3 see all programms\nenter your choice:\n");

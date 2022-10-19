@@ -70,6 +70,7 @@ int main()
 			break;
 		
 		case 4:
+			conf.edit();
 			break;
 		
 		case 5:

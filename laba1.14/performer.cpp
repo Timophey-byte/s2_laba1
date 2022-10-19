@@ -1,3 +1,4 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include"performer.h"
 
 Performer::Performer()
@@ -32,10 +33,39 @@ void Performer::print()
 }
 
 
-
-
-void Performer::edit()
+int Performer::takeIdOfProp()
 {
-	// TODO
+	printf("there are 4 properties you can edit\n");
+	print();
+	int id = -1;
+
+	while (id < 0 || id > 4)
+	{
+		printf("enter id of propertie or -1 to exit\n");
+		scan("%d", &id);
+		if (id == -1)
+			return -1;
+	}
+
+	return id;
 }
+
+int Performer::setProp(int i)
+{
+	char s[MAXLEN] = { '\0' };
+	printf("new value\n");
+	try {
+		s_get(s);
+	}
+	catch (char* msg)
+	{
+		throw msg;
+	}
+
+	strcpy(prop[i], s);
+
+	return 0;
+}
+
+
 
