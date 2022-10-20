@@ -12,6 +12,7 @@ class Performer : public Conference
 	int takeIdOfProp() override;
 
 	int setProp(int i) override;
+	int setProp(int i, char*) override;
 
 public:
 
@@ -19,7 +20,7 @@ public:
 	~Performer();
 
 	char* operator[](int i);
-
+	void filePrint(FILE* f) override;
 	void print() override;
 	
 };

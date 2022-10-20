@@ -31,6 +31,13 @@ void Prog::print()
 	printf("3) NAME %s\n", prop[NAME]);
 }
 
+void Prog::filePrint(FILE* f)
+{
+	fprintf(f, "%d\n", getType());
+	for (int i = 0; i < 3; i++)
+		fprintf(f, "%s\n", prop[i]);
+}
+
 
 int Prog::takeIdOfProp()
 {
@@ -63,5 +70,11 @@ int Prog::setProp(int i)
 
 	strcpy(prop[i - 1], s);
 
+	return 0;
+}
+
+int Prog::setProp(int i, char* s)
+{
+	strcpy(prop[i], s);
 	return 0;
 }

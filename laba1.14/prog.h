@@ -12,13 +12,14 @@ class Prog : public Conference
 	int takeIdOfProp() override;
 
 	int setProp(int i) override;
+	int setProp(int i, char*) override;
 
 public:
 
 	Prog();
 	~Prog();
 
-
+	void filePrint(FILE* f) override;
 	char* operator[](int i);
 
 	void print() override;

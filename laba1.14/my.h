@@ -17,3 +17,4 @@ void setListZero(char** arr, int n);
 
 
 void s_get(char* s);
+void s_getf(FILE* f, char* s);

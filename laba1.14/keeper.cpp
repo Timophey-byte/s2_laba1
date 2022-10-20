@@ -73,7 +73,37 @@ int Keeper::add() {
 
 	list = created;
 	list[size - 1] = add;
+	setChangeSaved(false);
+	return 0;
+};
 
+
+int Keeper::delit() {
+	int n = -1;
+	if (size == 0)
+	{
+		printf("no records found\n");
+		return 0;
+	}
+
+	while (n < 1 || n >= size)
+	{
+		printf("enter id of element or -1 to exit or %d to see all\n", size);
+		scan("%d", &n);
+		if (n == size)
+			printAll();
+		if (n == -1)
+			return 0;
+	}
+
+	delete list[n];
+	for (int i = n; i < size; i++)
+	{
+		list[i] = list[i + 1];
+	}
+
+	size -= 1;
+	setChangeSaved(false);
 	return 0;
 };
 
@@ -84,7 +114,11 @@ int Keeper::add() {
 int Keeper::edit() 
 {
 	int id = -1;
-
+	if (size == 0)
+	{
+		printf("no records found\n");
+		return 0;
+	}
 	while (id < 0 || id >= size)
 	{
 		printf("there are %d elements added\n", size);
@@ -248,11 +282,12 @@ char* Keeper::getFilePath()
 {
 	return filePath;
 }
+
 void Keeper::setFilePath(char* p)
 {
 	strcpy(filePath, p);
-
 }
+
 void Keeper::setPath()
 {
 	printf("now file path is: %s", getFilePath());
@@ -270,15 +305,108 @@ void Keeper::setPath()
 
 }
 
+void Keeper::save()
+{
+	if (size == 0)
+	{
+		printf("list is empty\n");
+		return;
+	}
+
+	FILE* fp = fopen(getFilePath(), "w"); fclose(fp);
+	if (fp == NULL)
+	{
+		printf("invalid file path\n");
+		return;
+	}
+	fp = fopen(getFilePath(), "a");
+	if (fp == NULL)
+	{
+		printf("invalid file path\n");
+		return;
+	}
+	fprintf(fp, "%d\n", size);
+	for (int i = 0; i < size; i++)
+	{
+		list[i]->filePrint(fp);
+	}
+
+	fclose(fp);
+}
+
+void Keeper::load()
+{
+
+	FILE* fp = fopen(getFilePath(), "r"); 
+	if (fp == NULL)
+	{
+		printf("invalid file path\n");
+		return;
+	}
+	int N = 0;
+	fscanf(fp, "%d\n", &N);
+	if (N <= 0)
+	{
+		throw (char*)"Data corrupted";
+	}
+
+	size = N;
+	Conference** created = new Conference * [N];
+
+	Conference* add = new Conference;
+
+	for (int i = 0; i < size; i++)
+	{
+		int type = 0;
+		fscanf(fp, "%d\n", &type);
+		switch (type)
+		{
+		case PERFORMER_T:
+			add = new Performer;
+			break;
+
+		case ADMIN_T:
+			add = new Admin;
+			break;
+
+		case PROGR_T:
+			add = new Prog;
+			break;
+
+		default:
+			fclose(fp);
+			throw (char*)"Data corrupted";
+		}
+		add->setType(type);
+		int prop_num = 3;
+		if (type == PERFORMER_T) prop_num = 4;
+		for (int j = 0; j < prop_num; j++)
+		{
+			char str[200];
+			try { s_getf(fp, str); }
+			catch (char* s)
+			{
+				throw s;
+			}
+			add->setProp(j, str);
+		}
+
+		created[i] = add;
+
+	}
+
+	list = created;
+
+	fclose(fp);
+}
 
 int Keeper::fileMenu()
 {
 	int mode = -1;
 	
-
 	while (true)
 	{
-		printf("FILE SETTINGS\nEXIT -1\nSET PATH 0\nSAVE 1\nLOAD 2\nenter comman\n");
+		printf("FILE SETTINGS\nEXIT -1\nSET PATH 0\nSAVE 1\nLOAD 2\nenter command\n");
 		scan("%d", &mode);
 		switch (mode)
 		{
@@ -296,10 +424,18 @@ int Keeper::fileMenu()
 			printf("now path is %s\n", getFilePath());
 			break;
 		case 1:
-			//save();
+			save();
+			setChangeSaved(true);
 			break;
 		case 2:
-			//load();
+			try {
+				load();
+				}
+			catch (char* m)
+			{
+				throw m;
+			}
+			setChangeSaved(false);
 			break;
 
 		}

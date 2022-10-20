@@ -27,6 +27,7 @@ public:
 
 	int add();
 	int edit();
+	int delit();
 
 	void printAll();
 	int printAllOfType(int t);

@@ -29,7 +29,14 @@ void Admin::print()
 	printf("1) FIO %s\n", prop[FIO]);
 	printf("2) POST %s\n", prop[TITLE]);
 	printf("3) RESPOSIBILITY %s\n", prop[RESP]);
+}
 
+void Admin::filePrint(FILE* f)
+{
+	fprintf(f, "%d\n", getType());
+	for (int i = 0; i < 3; i++)
+		fprintf(f, "%s\n", prop[i]);
+	
 }
 
 int Admin::takeIdOfProp()
@@ -63,5 +70,11 @@ int Admin::setProp(int i)
 
 	strcpy(prop[i-1], s);
 
+	return 0;
+}
+
+int Admin::setProp(int i, char* s)
+{
+	strcpy(prop[i], s);
 	return 0;
 }

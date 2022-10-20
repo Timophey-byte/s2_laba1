@@ -32,6 +32,12 @@ void Performer::print()
 	printf("4) ABSTRACT %s\n\n", prop[ABS]);
 }
 
+void Performer::filePrint(FILE* f)
+{
+	fprintf(f, "%d\n", getType());
+	for (int i = 0; i < 4; i++)
+		fprintf(f, "%s\n", prop[i]);
+}
 
 int Performer::takeIdOfProp()
 {
@@ -67,3 +73,8 @@ int Performer::setProp(int i)
 	return 0;
 }
 
+int Performer::setProp(int i, char* s)
+{
+	strcpy(prop[i], s);
+	return 0;
+}

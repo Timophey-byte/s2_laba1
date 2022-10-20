@@ -78,16 +78,18 @@ int main()
 			break;
 		
 		case 5:
+			conf.delit();
 			break;
 		
-		case 6:
-			break;
-		
-		case 7:
-			break;
 
 		case 10:
-			conf.fileMenu();
+			try {
+				conf.fileMenu();
+			}
+			catch (char* msg)
+			{
+				printf("exeption: %s\n", msg);
+			}
 			break;
 
 

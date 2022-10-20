@@ -21,16 +21,18 @@ class Conference
 	int type;
 	virtual int takeIdOfProp() { return 0; };
 
-	virtual int setProp(int i) { return 0; };
-
+	
 public:
 
 	Conference();
 	~Conference();
 
 	virtual void print() {};
+	virtual void filePrint(FILE* f) {};
 	virtual char* operator[](int i) { return nullptr; };
-	
+	virtual int setProp(int i) { return 0; };
+	virtual int setProp(int i, char* s) { return 0; };
+
 	int edit();
 
 	void setType(int);
