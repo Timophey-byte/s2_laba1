@@ -5,7 +5,7 @@
 void list()
 {
 	printf("\n\tlist of main commands:\n");
-	printf("0 exit programm\n");
+	printf("-1 exit programm\n");
 	printf("1 print choice\n");
 	printf("2 search\n");
 	printf("3 add new\n");
@@ -21,15 +21,16 @@ int main()
 	Keeper conf;
 
 	int t = 0;
-	while (1)
+	while (t == 0)
 	{
 		list();
 		printf("enter menu command:\n");
 		scan("%d", &t);
 		switch (t)
 		{
-		case 0:
-			return 0;
+		case -1:
+			t =-1;
+			break;
 
 		case 1:
 		{
@@ -57,15 +58,15 @@ int main()
 				}
 			}
 		}
-			break;
+		t = 0; break;
 
 		case 2:
 			conf.searchPrint();
-			break;
+			t = 0;	break;
 		
 		case 3:
 			conf.add();
-			break;
+			t = 0;	break;
 		
 		case 4:
 			try {
@@ -75,11 +76,11 @@ int main()
 			{
 				printf("exeption: %s\n", msg);
 			}
-			break;
+			t = 0;	break;
 		
 		case 5:
 			conf.delit();
-			break;
+			t = 0;	break;
 		
 
 		case 10:
@@ -90,14 +91,25 @@ int main()
 			{
 				printf("exeption: %s\n", msg);
 			}
-			break;
+			t = 0;	break;
 
 
 		default:
 			printf("no such command\n");
-				break;
+			t = 0;		break;
 		}
 
+	}
+
+
+	if (conf.isChangeSaved() == false)
+	{
+		printf("**you did not save last changes**\n");
+		printf("**save? 1 yes -- 0 no**\n");
+		int t = -1;
+		while (t < 0 || t > 1) scan("%d", &t);
+		if(t == 1)
+			conf.save();
 	}
 
 
